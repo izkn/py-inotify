@@ -107,7 +107,7 @@ read_events(PyObject* self, PyObject* args, PyObject* kw) {
     ioctl(fd, FIONREAD, &bytes_available);
 
     if (bytes_available)
-        buf_size *= bytes_available;            // This is risky.. what if they wait a long time?
+        buf_size *= bytes_available;
     else
         buf_size *= 10 * (sizeof(struct inotify_event) + NAME_MAX + 1);
 
@@ -131,7 +131,7 @@ read_events(PyObject* self, PyObject* args, PyObject* kw) {
         return NULL;
     }
 
-    PyObject* event_list = PyList_New(0);      // Check for failure here (NULL)?
+    PyObject* event_list = PyList_New(0);
 
     if (len <= 0)     // Zero bytes in nonblocking mode
         return event_list;
@@ -161,29 +161,13 @@ read_events(PyObject* self, PyObject* args, PyObject* kw) {
             PyStructSequence_SetItem(
                 new_parsed_event, 4, PyUnicode_FromString(""));
 
-        PyList_Append(event_list, new_parsed_event);       // Check for failure here?
+        PyList_Append(event_list, new_parsed_event);
     }
 
     free(buf);
 
     return event_list;
 }
-
-
-
-// static PyObject*
-// events_in_mask(PyObject* self, PyObject* args, PyObject* kw) {
-//     static const char* kwlist[] = {"mask", NULL};
-
-//     uint32_t mask;
-
-//     if (!PyArg_ParseTupleAndKeywords(
-//             args, kw, "I", const_cast<char**>(kwlist), &fd))
-//         return NULL;
-
-//     for (uint i = 0; i < 32; ++i) {
-//         if
-//     }
 
 
 static PyMethodDef InotifyMethods[] = {
