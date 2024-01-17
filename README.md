@@ -1,5 +1,7 @@
 # py-inotify : Lightweight bindings for [inotify(7)](https://man7.org/linux/man-pages/man7/inotify.7.html)
 
+**This extension is under active development.**
+
 **py-inotify** uses the [Python/C API](https://docs.python.org/3/c-api/index.html) to create lightweight bindings
 for the Linux kernel *inotify* API.
 
